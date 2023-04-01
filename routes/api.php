@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Http\Controllers\API\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+// Unauthenticated routes
+
+
+// Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::post('/tokens/create', function (Request $request) {
+    $user = User::find(2);
+    $token = $user->createToken($request->token_name);
+    return ['token' => $token->plainTextToken];
 });
+
+
+Route::middleware(['decodeRequest', 'encodeResponse'])->group(function(){
+
+
+// All authenticated routes.
+Route::middleware(['auth:sanctum'])->group(function(){
+    Route::post('/posts', [PostController::class, 'all_posts']);
+});
+
+});
+
+
+
+
+
+
+
+
