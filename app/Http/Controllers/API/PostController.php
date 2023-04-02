@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
  public function all_posts(Request $request){
-    dd("HELLO");
+   //  dd("HELLO");
+   return 'hghghghghghgjhggjgjhgjhghgjgjghjghghghg';
  }   
 }

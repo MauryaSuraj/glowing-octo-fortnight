@@ -19,6 +19,6 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
-Route::get('/dasboard', [DashboardController::class, 'testfunction'] );
+Route::any('/encdep', [DashboardController::class, 'encdec']);
 
 require __DIR__.'/auth.php';

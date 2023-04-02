@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Http\Services\Encode;
+use Illuminate\Support\Facades\Log;
 
 class EncodeResponse
 {
@@ -17,7 +18,22 @@ class EncodeResponse
      */
     public function handle(Request $request, Closure $next)
     {
-        // dd(Encode::enc('hello'));
-        return $next($request);
+        return $response = $next($request);
+
+        if(!isset($request->output)){
+            $r = $response->getContent();
+            try {
+                $output = Encode::enc($r);
+            } catch (\Exception $e) {
+                Log::info($r);
+                throw $e;
+            }
+            $errCode = $response->status();
+            $request->output = $output;
+        }
+
+        return response()->json([
+            'res_data' => $request->output,
+        ], 200);
     }
 }

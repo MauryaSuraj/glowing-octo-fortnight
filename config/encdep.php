@@ -3,7 +3,7 @@
 return [
     
     // Encyption algorithm
-    'ciphering' => 'AES-128-CTR',
+    'ciphering' => 'AES-256-CTR',
     
     //Encryption IV.
     'encryption_iv' => '1234567891011121',
