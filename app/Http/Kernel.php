@@ -39,6 +39,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            \App\Http\Middleware\ApiValidationRoute::class,
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
@@ -64,6 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         'decodeRequest' => \App\Http\Middleware\DecodeRequest::class,
-        'encodeResponse' => \App\Http\Middleware\EncodeResponse::class
+        'encodeResponse' => \App\Http\Middleware\EncodeResponse::class,
     ];
 }

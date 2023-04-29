@@ -11,12 +11,9 @@ class ExceptionHandle
     
     public static function log($exception = null){
 
-        if( $exception instanceof QueryException ){
-            Log::error($exception);
-        }
-
         if ( $exception instanceof UserExceptions ){
-            Log::error($exception);
+            info('Suraj');
+            //Log::error($exception);
             return new UserExceptions($exception->getMessage());
         }
 

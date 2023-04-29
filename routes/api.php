@@ -19,13 +19,15 @@ use App\Http\Controllers\API\UserController;
 
 // Unauthenticated routes
 
-// Route::post('/tokens/create', function (Request $request) {
-//     $user = User::find(2);
-//     $token = $user->createToken($request->token_name);
-//     return ['token' => $token->plainTextToken];
+Route::post('/tokens/create', [UserController::class, 'create_token']);
+
+
+// Route::group(function(){
+    Route::get('get_all_users', [UserController::class, 'get_all_users']);
 // });
 
-Route::get('get_all_users', [UserController::class, 'get_all_users']);
+
+
 
 Route::middleware(['decodeRequest', 'encodeResponse'])->group(function(){
 

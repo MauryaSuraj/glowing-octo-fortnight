@@ -55,6 +55,27 @@ class UserController extends Controller
 
     }
 
+    public function create_token(Request $request){
+        try {
+
+            $validator = Validator::make(request()->all(), [
+                'token_name_id' => ['required', 'string', 'max:255'],
+            ]);
+
+            if ($validator->fails()) {
+                return $this->errorResponse($validator->messages(), $validator->messages() , 422);
+            }
+
+            $user = User::find(1);
+            $token = $user->createToken($request->token_name);
+            
+            return ['token' => $token->plainTextToken];
+
+        } catch (Exception $th) {
+            return $this->errorResponse($th->getMessage(), $th->getMessage() , 422);
+        }
+    }
+
     public function get_all_users(Request $request){
         $user = User::all();
         return $this->successResponse($user);
